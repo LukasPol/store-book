@@ -1,17 +1,55 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Loja de Livros
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-margin-bottom">
+  <ion-list *ngIf="this.books.length > 0">
+    <ion-item *ngFor="let book of this.books;">
+      <ion-card>
+        <ion-card-header>
+          <img src="{{book.cover}}" width="50%">
+          <ion-card-title>
+            {{book.title}}
+          </ion-card-title>
+          <ion-card-subtitle>
+            {{book.author}}
+          </ion-card-subtitle>
+        </ion-card-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+        <ion-card-content>
+          <ion-list>
+            <ion-text color="dark">
+              <b>Ano: {{book.year}}</b>
+            </ion-text> <br />
+            <ion-text color="dark">
+              <b>Editora: {{book.publisher}}</b>
+            </ion-text> <br />
+            <ion-text color="dark">
+              <b>Quantidade no car.: {{book.countCart}}</b>
+              <ion-button color="success" (click)="this.addCountBook(book)">
+                <ion-icon name="add-outline"></ion-icon>
+              </ion-button>
+              <ion-button color="danger" (click)="this.removeBook(book)">
+                <ion-icon name="remove-outline"></ion-icon>
+              </ion-button>
+            </ion-text> <br />
+            <ion-text color="dark">
+              <b>Preço Total: {{book.countCart * book.price}}</b>
+            </ion-text> <br />
+            <ion-button color="primary">
+              <b>Finalizar compra </b>
+            </ion-button> <br />
+          </ion-list>
+          <!-- <ion-footer> <ion-label> <font size="1"> Atualizado: {{ c.updated | date: 'dd/MM/yyyy hh:mm a' }} - Fonte: <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/events-as-they-happen" target="_blank">WHO</a> </font></ion-label></ion-footer> -->
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+  <ion-text *ngIf="this.books.length === 0 "> Sem livro no carrinho</ion-text>
 </ion-content>
+
+
